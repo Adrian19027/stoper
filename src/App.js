@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Time from "./components/Time/Time";
+import Button from "./components/Button/Button";
+import styles from "./App.module.scss";
 
-function App() {
+const App = () => {
+
+  const [time, setTime] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
+  
+  const handleStart = () => {
+    if (intervalId !== null) return;
+
+    const id = setInterval(() => {
+      setTime(prevTime => prevTime + 100);
+    }, 100);
+
+    setIntervalId(id);
+  };
+
+  const handleStop = () => {
+    clearInterval(intervalId);
+    setIntervalId(null);
+  };
+
+  const handleReset = () => {
+    clearInterval(intervalId);
+    setIntervalId(null);
+    setTime(0);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.app}>
+      <h1 className="header">Stoper</h1>
+      <Time timems={time} />
+      <Button onClick={handleStart}>START</Button>
+      <Button onClick={handleStop}>STOP</Button>
+      <Button onClick={handleReset}>RESET</Button>
     </div>
   );
 }

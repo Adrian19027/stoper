@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Time from "./components/Time/Time";
 import Button from "./components/Button/Button";
 import styles from "./App.module.scss";
@@ -7,6 +7,12 @@ const App = () => {
 
   const [time, setTime] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
+  
+  useEffect(() => {
+    return () => {
+     if(intervalId) clearInterval(intervalId);
+    };
+    }, []);
   
   const handleStart = () => {
     if (intervalId !== null) return;
@@ -31,11 +37,13 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <h1 className="header">Stoper</h1>
+      <h1 className={styles.header}>Stoper</h1>
       <Time timems={time} />
-      <Button onClick={handleStart}>START</Button>
-      <Button onClick={handleStop}>STOP</Button>
-      <Button onClick={handleReset}>RESET</Button>
+      <div className={styles.buttons}>
+        <Button onClick={handleStart}>START</Button>
+        <Button onClick={handleStop}>STOP</Button>
+        <Button onClick={handleReset}>RESET</Button>
+      </div>
     </div>
   );
 }

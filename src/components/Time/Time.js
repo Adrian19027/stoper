@@ -1,4 +1,4 @@
-// import styles from './Time.module.scss';
+import styles from './Time.module.scss';
 
 const Time = ({timems}) => {
 
@@ -17,9 +17,7 @@ const Time = ({timems}) => {
     }
     
     return (
-        <div className="">
-            <h2>{formatTimeFromMs(timems)}</h2>
-        </div>
+        <h2 className={styles.time}>{formatTimeFromMs(timems)}</h2>
    );
 };
 

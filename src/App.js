@@ -25,6 +25,7 @@ const App = () => {
   };
 
   const handleStop = () => {
+    if (!intervalId) return;
     clearInterval(intervalId);
     setIntervalId(null);
   };
